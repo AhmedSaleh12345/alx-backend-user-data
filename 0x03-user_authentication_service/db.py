@@ -4,7 +4,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.exc import InvalidRequestError, NoResultFound
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 from typing import Dict
 
 from user import Base, User
@@ -53,7 +54,7 @@ class DB:
         try:
             quary = sesssion.query(User).filter_by(**kwargs).one()
         except NoResultFound:
-            raise
+            raise NoResultFound()
         except InvalidRequestError:
-            raise
+            raise InvalidRequestError()
         return quary
