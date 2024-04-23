@@ -51,10 +51,9 @@ class DB:
         Find user
         """
         sesssion = self._session
-        try:
-            quary = sesssion.query(User).filter_by(**kwargs).one()
-        except InvalidRequestError:
-            raise InvalidRequestError()
+        if not kwargs:
+            raise InvalidRequestError
+        quary = sesssion.query(User).filter_by(**kwargs).one()
         if quary:
             return quary
         else:
