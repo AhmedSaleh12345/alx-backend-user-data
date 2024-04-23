@@ -46,13 +46,16 @@ class DB:
             new_user = None
         return new_user
 
-    def find_user_by(self, **kwargs) -> User:
-        """Returns the first row found in the users table
+    def find_user_by(self, **kwargs: Dict[str, str]) -> User:
         """
-        if not kwargs:
-            raise InvalidRequestError
-        found_user = self._session.query(User).filter_by(**kwargs).first()
-        if found_user:
-            return found_user
+        Find user
+        """
+        sesssion = self._session
+        try:
+            quary = sesssion.query(User).filter_by(**kwargs).one()
+        except InvalidRequestError:
+            raise InvalidRequestError()
+        if quary:
+            return quary
         else:
             raise NoResultFound
