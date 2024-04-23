@@ -53,7 +53,7 @@ class DB:
             error: NoResultFound: When no results are found.
             error: InvalidRequestError: When invalid query arguments are passed
         """
-       
+
         session = self._session
         try:
             user = session.query(User).filter_by(**kwargs).one()
@@ -61,5 +61,4 @@ class DB:
             raise NoResultFound()
         except InvalidRequestError:
             raise InvalidRequestError()
-        # print("Type of user: {}".format(type(user)))
         return user
