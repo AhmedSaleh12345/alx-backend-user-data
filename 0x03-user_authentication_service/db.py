@@ -47,7 +47,12 @@ class DB:
         return new_user
 
     def find_user_by(self, **kwargs: Dict[str, str]) -> User:
-        """ Find user"""
+        """
+        Find user
+        Raises:
+            error: NoResultFound: When no results are found.
+            error: InvalidRequestError: When invalid query arguments are passed
+        """
         try:
             sesssion = self._session
             quary = sesssion.query(User).filter_by(**kwargs).one()
