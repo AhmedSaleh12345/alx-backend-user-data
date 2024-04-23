@@ -53,7 +53,7 @@ class DB:
         sesssion = self._session
         if not kwargs:
             raise InvalidRequestError
-        quary = sesssion.query(User).filter_by(**kwargs).one()
+        quary = sesssion.query(User).filter_by(**kwargs).first()
         if quary:
             return quary
         else:
